@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SshLens - read your SSH public keys</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128272;</text></svg>">
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--panel2:#1c2330;--line:#2d3646;--fg:#e6edf3;--dim:#8b98a9;--ok:#3fb950;--warn:#d29922;--bad:#f85149;--acc:#58a6ff;--vio:#bc8cff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1020px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:26px;margin:0 0 4px}
+.sub{color:var(--dim);margin:0 0 18px}
+a{color:var(--acc)}
+textarea{width:100%;min-height:110px;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:12px;font:12px/1.45 ui-monospace,Menlo,monospace;resize:vertical}
+label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);display:block;margin:0 0 6px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+button.ghost{background:transparent;color:var(--acc);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12.5px;cursor:pointer}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:14px}
+.card h3{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);font-weight:600}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:13.5px}
+.kv dt{color:var(--dim)}
+.kv dd{margin:0;font-family:ui-monospace,Menlo,monospace;font-size:12px;word-break:break-all}
+.badge{display:inline-block;border-radius:20px;padding:2px 10px;font-size:12px;margin:2px 4px 2px 0;border:1px solid var(--line)}
+.badge.ok{color:var(--ok);border-color:var(--ok)}
+.badge.warn{color:var(--warn);border-color:var(--warn)}
+.badge.vio{color:var(--vio);border-color:var(--vio)}
+.badge.bad{color:var(--bad);border-color:var(--bad)}
+.big{font-size:19px;font-weight:600;margin:4px 0}
+.ragrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.ragrid{grid-template-columns:1fr}}
+.ragrid pre{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px;font:11px/1.3 ui-monospace,Menlo,monospace;overflow:auto;margin:6px 0 0;color:var(--fg)}
+.ragrid h4{margin:0;font-size:12px;color:var(--dim);font-weight:600}
+.warns li{color:var(--warn);font-size:13.5px}
+.meta{color:var(--dim);font-size:12.5px;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>&#128272; SshLens</h1>
+<p class="sub">Paste SSH public keys - one line or a whole authorized_keys file. Algorithm, bits, comment, both fingerprints, and the OpenSSH randomart for each digest, all decoded in your browser. Verified byte-for-byte against ssh-keygen. <a href="index.html">About</a></p>
+<div class="panel">
+<label>public keys (authorized_keys format)</label>
+<textarea id="inp" spellcheck="false" placeholder="ssh-ed25519 AAAAC3... you@host"></textarea>
+<div class="presets" id="presets"></div>
+</div>
+<div id="out"></div>
+<p class="meta">Nothing is uploaded. Fingerprints are computed from the decoded blob with pure-JS SHA-256 and MD5; randomart uses the OpenSSH drunken-bishop algorithm. Every corpus key is verified against ssh-keygen -l / -lv for both digests (tests/).</p>
+</div>
+<script src="engine.js?v=379"></script>
+<script>
+var PRESETS = {"Ed25519 (idan@laptop)": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPDUlRGtZ+SLOme8ymIhkEJm1MSBZZli6yi7Xkrelb3S idan@laptop", "RSA 4096 (no comment)": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDEJkF8OoBICo49/WDu1AytsSJvoSpKJfpYndEdfgC4U7AS2EV/qxnMGEAMOCLoBaicDuSvaHYZ7Xb4TyqdmjvQ9Kg8jahHL8Fhw9ZP4E4U2S3STsibCWvipMWl+jIC3hYeBxvw6jbzhh8khAczJ+GgHfWXq28f83gb6DzuKu8HVcIswrdeyCsseYBFO7FDfustsHkXAESAOx/zijZC4YvXeK76ekEbyLgXy1tEeyhUvQLHTGLAI0kgWTXa8whNeZKx+KZXyqcDpPvpgioicUqBppJY6cCbS5G9xSRme+x8zucIIfa2PKMsFhcfOtCu4hz8zQ8ZlvdLcS/njpMzxKUXtcSZwDYoZD3jNC27dApu38oWSM768yn+TNuykzoCGVxLvTpF2w6vOcnLqGz7Lj9WuSFN5p3dWb04kU5WMTJ6YhmQQ75VHp3RyfTAYh2CGwRx4RtMNLeXlX0oS4j8ImRgq19s6Aiha7K30oz9rZgvMwlBYUtWA+DuaQ+tCzmxHjKUV5cI1H3t7SsdRV2wmcxL8xGqbbGrH0KxCz9Yl96XIhEkcJk02KcNRruIxknSCREX8deYH7xpnhL4bH9vXmJ9yCVp+n4HMPr7kmuZNz8DnS+WG5rNkstwZfEJFCNmqgTfitiigBwW4s1+LIual16oJ7lfMtHBh8xy6pH1zz3WWQ==", "ECDSA P-521": "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBABd15mhwmHCzPam4Yg8bonp7AJRgC/OAlKc6Chf6phMmwDyqivmW3CZeUj5nBHi6TGR2Ib/RXFh8ln3fNPxORQDgwAbDG4XSNiUQKDOowkbWcGO9G+Ujp0slGWKNIr7UZ69Gq0fmgbZeodm72HgMRXnpRTW0VoGdlC7TwpwfjORp5pQAQ== ec@p521", "Weak RSA 1024": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDjhW36Zw1A5ZXq2REeJJt2pwYrndpieJpEJORg/eKpxJjE9/kvaGsjGBmmoLg8HMY1DCmv4pme3JqX3VFtw8HRdEfGVbSR0gxYAmJiXhuR9WAzau4Z+xYdhdL7AWQdbSU4bwH4M4cH7RZWDNHdE2g4EU9tMUQl7jyLFebLryPCfQ== old key", "authorized_keys (2 keys)": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPDUlRGtZ+SLOme8ymIhkEJm1MSBZZli6yi7Xkrelb3S idan@laptop\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCvOTPo1N4iqYypLHHurlBOMYWzIusnfYNKRCY5K0pOOLXyq447VxpTfxtMp3w+lVMrQzx7FawBfA0DhfBmfxffHfJouB6WfwFTiuNGYI9iL7nMo3wl5wXYJMj74d1Nl2Nb8nTDieUg8qnMHQfg1KtPAkrwah6LDaN7Cam/+/VM2NyVNHjKlJhWUq7Zz/Rc+yqKk5Z06MpKjyVJGo7EdHtUCyFyWSNXd+szgfj3yEVGRezDm7CC6Z/TNg+DbGB0lfRQLdgGEkoErXaROUk2qbJkpP9wRcfAO59oc/ocQNhLvlG8v8kTC6zMElwz68GyIFY9epkoBKnuYFaYFqQkilsr deploy@ci", "restricted options line": "command=\"/bin/rrsync /data\",no-pty,no-agent-forwarding ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPDqo2ajMd6xxDmzEYFg6X4IaE6kI0cXGCQul0vAvvTkZcOvfqCs/KW1HaeHlSZUzHn68JRa6EsLxHUFS/sdXFo= ec@p256"};
+
+(function(){
+"use strict";
+var pr=document.getElementById('presets');
+Object.keys(PRESETS).forEach(function(k){
+  var b=document.createElement('button'); b.className='ghost'; b.textContent=k;
+  b.onclick=function(){ document.getElementById('inp').value=PRESETS[k]; run(); };
+  pr.appendChild(b);
+});
+document.getElementById('inp').addEventListener('input', run);
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function kv(rows){return '<dl class="kv">'+rows.map(function(r){return '<dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd>';}).join('')+'</dl>';}
+function art(title, rows){
+  var w=rows[0]?rows[0].length:17;
+  var hdr='+--['+title+']'+'-'.repeat(Math.max(0,w-4-title.length))+'+';
+  return hdr+'\n'+rows.map(function(r){return '|'+r+'|';}).join('\n')+'\n+'+'-'.repeat(w+2)+'+';
+}
+function run(){
+  var text=document.getElementById('inp').value;
+  var out=document.getElementById('out');
+  out.innerHTML='';
+  if(!text.trim()) return;
+  var r=SshLens.parseText(text);
+  var html='';
+  if(!r.keys.length&&!r.errors.length){ out.innerHTML=''; return; }
+  r.keys.forEach(function(k){
+    var badges='<span class="badge ok">'+esc(k.kind)+'</span>'
+      +(k.bits?'<span class="badge">'+k.bits+' bits</span>':'')
+      +(k.curve?'<span class="badge vio">'+esc(k.curve)+'</span>':'')
+      +'<span class="badge">line '+k.line+'</span>';
+    var rows=[['algorithm',k.algo]];
+    if(k.comment) rows.push(['comment',k.comment]);
+    if(k.options) rows.push(['options',k.options]);
+    rows.push(['SHA256',k.sha256]);
+    rows.push(['MD5',k.md5]);
+    rows.push(['blob bytes',String(k.blobBytes)]);
+    var warns=k.warnings.length?'<ul class="warns">'+k.warnings.map(function(w){return '<li>'+esc(w)+'</li>';}).join('')+'</ul>':'';
+    html+='<div class="card"><h3>Key - line '+k.line+'</h3><div class="big">'+esc(k.kind)+(k.bits?' &middot; '+k.bits+'-bit':'')+'</div>'+badges
+      +kv(rows)+warns
+      +'<div class="ragrid"><div><h4>randomart (SHA256)</h4><pre>'+esc(art(k.algo+' '+ (k.bits||''), k.randomart_sha256))+'</pre></div>'
+      +'<div><h4>randomart (MD5)</h4><pre>'+esc(art(k.algo+' '+(k.bits||''), k.randomart_md5))+'</pre></div></div></div>';
+  });
+  r.errors.forEach(function(e){
+    html+='<div class="card"><h3>Could not parse</h3><div class="big" style="color:var(--bad)">line '+e.line+'</div><p style="font-family:monospace">'+esc(e.error)+'</p></div>';
+  });
+  out.innerHTML=html;
+}
+run();
+})();
+</script>
+</body>
+</html>
