@@ -1,0 +1,249 @@
+{
+ "items": [
+  {
+   "name": "k_ed25519",
+   "file": "k_ed25519.pub",
+   "algo": "ssh-ed25519",
+   "bits": 256,
+   "comment": "idan@laptop",
+   "sha256": "SHA256:y9VMETBSbjXeqY06U/q16oJumOdCiz2WPw3txdByMDE",
+   "md5": "MD5:11:54:8e:9a:bd:0f:71:d5:3f:18:a5:11:9a:c7:d1:8f",
+   "randomart_sha256": [
+    "        ..Eo=.   ",
+    "         oo= + . ",
+    "          o+o o  ",
+    "         .o+o+   ",
+    "        S..=* .  ",
+    "      ...o.+o    ",
+    "     + =o==.  .  ",
+    "    . X = ++ . . ",
+    "     . O+. o+..  "
+   ],
+   "randomart_md5": [
+    "       .o..  +o. ",
+    "         +  +.=. ",
+    "        o .o.=...",
+    "       + . .. E..",
+    "      o S .  . ..",
+    "         +      .",
+    "        o        ",
+    "         o       ",
+    "          .      "
+   ]
+  },
+  {
+   "name": "k_rsa2048",
+   "file": "k_rsa2048.pub",
+   "algo": "ssh-rsa",
+   "bits": 2048,
+   "comment": "deploy@ci",
+   "sha256": "SHA256:/BggDCqdOIyvjj3JBGUokN+bbU/Bn23wjJklYn+TVVg",
+   "md5": "MD5:99:47:e5:91:79:d0:1f:5a:fa:db:f8:7e:be:12:3c:d3",
+   "randomart_sha256": [
+    "oo.            oE",
+    "*+o+          . .",
+    "B=o.o ..       . ",
+    "oo. .. o= o . .  ",
+    " ..  + .S= % o   ",
+    " .. o o .+B O    ",
+    ".o . . o. .o .   ",
+    "o.+     .        ",
+    "....             "
+   ],
+   "randomart_md5": [
+    "            +=   ",
+    "           oo.oo ",
+    "          . ..+..",
+    "         +   o  .",
+    "        S . . o  ",
+    "         .   = E ",
+    "              +.o",
+    "             ...o",
+    "              .=*"
+   ]
+  },
+  {
+   "name": "k_rsa4096",
+   "file": "k_rsa4096.pub",
+   "algo": "ssh-rsa",
+   "bits": 4096,
+   "comment": null,
+   "sha256": "SHA256:gI8KGQ6AUzhLScyE1MILVRui0gwd+UYt73qxspRa7zQ",
+   "md5": "MD5:64:4e:30:02:47:b3:dc:91:51:b2:9c:db:3e:80:fd:5c",
+   "randomart_sha256": [
+    "%OB+o.           ",
+    "O%ooo+.          ",
+    "B+=ooo.          ",
+    "=+  oo..         ",
+    "o. .... S        ",
+    " . . .o          ",
+    "  . +.Eo         ",
+    "   +ooo.         ",
+    "  . .=o          "
+   ],
+   "randomart_md5": [
+    "  .o= *+.        ",
+    "   o *.B         ",
+    "    o = +        ",
+    "     o B         ",
+    "    . + S E      ",
+    "       = .       ",
+    "        =        ",
+    "         .       ",
+    "                 "
+   ]
+  },
+  {
+   "name": "k_rsa1024",
+   "file": "k_rsa1024.pub",
+   "algo": "ssh-rsa",
+   "bits": 1024,
+   "comment": "old key",
+   "sha256": "SHA256:lgcBuyH4hEBa0JtW17W2ahr7+Z4AV70HdkWWqKh1WbM",
+   "md5": "MD5:40:2e:c7:09:04:28:e3:5a:b1:7f:51:88:fd:4c:96:10",
+   "randomart_sha256": [
+    "++.   .o...   ..=",
+    ".o.o. .... o + + ",
+    ". o+o.o . = B +  ",
+    "  +o . o B * E   ",
+    " .  . o S + . .  ",
+    "       = o   .   ",
+    "      . +        ",
+    "       = o .     ",
+    "      o.oo+      "
+   ],
+   "randomart_md5": [
+    " ..oooE+ .       ",
+    "+ . .=o.=        ",
+    "o. o. **         ",
+    " .o  o..o        ",
+    ".. .   .S        ",
+    ".   . .          ",
+    "     .           ",
+    "                 ",
+    "                 "
+   ]
+  },
+  {
+   "name": "k_ecdsa256",
+   "file": "k_ecdsa256.pub",
+   "algo": "ecdsa-sha2-nistp256",
+   "bits": 256,
+   "comment": "ec@p256",
+   "sha256": "SHA256:RrFCQDjpZj2cjSuiurxSzsLHH8idAM8MRWNwNtQVWBo",
+   "md5": "MD5:55:fc:e1:94:bc:dd:41:21:b7:76:b1:31:ea:0c:2f:4a",
+   "randomart_sha256": [
+    " .+&+E=+o        ",
+    "  O o+o  o       ",
+    " + + =. o        ",
+    "  X * .o         ",
+    " o = o  S        ",
+    ". + = ..         ",
+    "o=.+ +           ",
+    "=.oo  .          ",
+    "==o ..           "
+   ],
+   "randomart_md5": [
+    "           ..o.O.",
+    "           .. O.*",
+    "          .. = B+",
+    "         .  = = +",
+    "        SE . +   ",
+    "        . . .    ",
+    "         .       ",
+    "                 ",
+    "                 "
+   ]
+  },
+  {
+   "name": "k_ecdsa384",
+   "file": "k_ecdsa384.pub",
+   "algo": "ecdsa-sha2-nistp384",
+   "bits": 384,
+   "comment": null,
+   "sha256": "SHA256:pITJ6vokuQiVR1GatSAa9GBQNLpNZ7i+T25jYhdjQoQ",
+   "md5": "MD5:2e:de:c0:94:6a:97:8d:45:3f:ba:74:be:37:b3:e1:01",
+   "randomart_sha256": [
+    "=B= o.o          ",
+    "E++= O .         ",
+    "o.o.X o .        ",
+    " +.B . o         ",
+    "..* . . S        ",
+    " =..+            ",
+    "+ +o.o           ",
+    "o=o+=            ",
+    "+oo*o.           "
+   ],
+   "randomart_md5": [
+    "                 ",
+    "                 ",
+    "        .        ",
+    "       o .       ",
+    "      o S E      ",
+    "     + * . o     ",
+    "    o B = . o    ",
+    "   . o = + .+o   ",
+    "      . o ooo+   "
+   ]
+  },
+  {
+   "name": "k_ecdsa521",
+   "file": "k_ecdsa521.pub",
+   "algo": "ecdsa-sha2-nistp521",
+   "bits": 521,
+   "comment": "ec@p521",
+   "sha256": "SHA256:X7RzaIvREfzCS9IO/Cv6PIt0VnD1TlYI7vlhhg/ReGY",
+   "md5": "MD5:dc:d7:5e:5d:b0:54:a7:c7:63:c0:c5:2f:54:dd:77:7b",
+   "randomart_sha256": [
+    "           .o....",
+    "           ..=...",
+    "         ..oB.E +",
+    "          +*=@.+ ",
+    "        S .*&o= .",
+    "         . *+X . ",
+    "        . = ..o  ",
+    "       . =o .    ",
+    "        oo++     "
+   ],
+   "randomart_md5": [
+    "            ..=+*",
+    "             oo**",
+    "             .ooO",
+    "       . .   .ooE",
+    "        S . . ..+",
+    "           . . . ",
+    "              .  ",
+    "                 ",
+    "                 "
+   ]
+  }
+ ],
+ "errors": [
+  {
+   "file": "bad_garbage.txt",
+   "errors": 1,
+   "keys": 0
+  },
+  {
+   "file": "bad_declared.txt",
+   "errors": 1,
+   "keys": 0
+  },
+  {
+   "file": "bad_trunc.txt",
+   "errors": 1,
+   "keys": 0
+  }
+ ],
+ "multi": {
+  "file": "ak_multi",
+  "keys": 2,
+  "errors": 0
+ },
+ "options": {
+  "file": "ak_options",
+  "keys": 1,
+  "errors": 0,
+  "options": "command=\"/bin/rrsync /data\",no-pty,no-agent-forwarding"
+ }
+}
