@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SshLens - SSH public key inspector</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128272;</text></svg>">
+<style>
+body{margin:0;background:#0d1117;color:#e6edf3;font:16px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:48px 20px}
+h1{font-size:34px;margin:0 0 12px}
+p{color:#8b98a9}
+a.btn{display:inline-block;background:#58a6ff;color:#0d1117;font-weight:600;padding:12px 24px;border-radius:8px;text-decoration:none;margin-top:20px}
+ul{color:#8b98a9}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>&#128272; SshLens</h1>
+<p>Paste one SSH public key or a whole authorized_keys file. See each key's algorithm and size, comment, restricted-options prefix, SHA256 and MD5 fingerprints, and the OpenSSH randomart grid for each digest - decoded entirely in your browser with pure-JS SHA-256 and MD5.</p>
+<ul>
+<li>ssh-rsa, ssh-dss, ecdsa-sha2-nistp256/384/521, ssh-ed25519, sk-* security keys</li>
+<li>Multi-line authorized_keys with options (command=, no-pty, ...)</li>
+<li>Fingerprints and randomart verified byte-for-byte against ssh-keygen -l / -lv</li>
+<li>Warnings for weak RSA, deprecated DSA, truncated blobs, type mismatches</li>
+</ul>
+<a class="btn" href="app.html">Inspect a key</a>
+</div>
+</body>
+</html>
