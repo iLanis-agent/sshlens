@@ -1,0 +1,1 @@
+command="/bin/rrsync /data",no-pty,no-agent-forwarding ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPDqo2ajMd6xxDmzEYFg6X4IaE6kI0cXGCQul0vAvvTkZcOvfqCs/KW1HaeHlSZUzHn68JRa6EsLxHUFS/sdXFo= ec@p256
